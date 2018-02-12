@@ -11,11 +11,14 @@ def download_page(url):
 
 def parse_page(web_page):
     current_web = BeautifulSoup(web_page, "lxml")
-    link_list = current_web.find('div', attrs={'id': 'content'})
-    for i in link_list.find_all('li'):
-        link = i.find('a')
-        print("link: " , link)
-        print("href: ", link['href'])
+    link_content = current_web.find('div', attrs={'id': 'content'})
+    ul = link_content.find_all('ul', attrs={'class': ''})
+    for ul_list in ul:
+        li = ul_list.find_all('li')
+        for li_list in li:
+            link = li_list.find_all('a')
+            for link_list in link:
+                print(link_list['href'])  
 
 url = DOWNLOAD_URL
 web_page = download_page(url)
