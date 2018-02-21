@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import urllib.request
 
 downloaded_links = []
+file_name = ''
 
 def input_link():
     DOWNLOAD_URL = input("Enter the link: ")
@@ -25,10 +26,14 @@ def parse_page(web_page):
                 downloaded_links.append(link_list['href'])
                 print(link_list['href']) 
 
+    global file_name 
+    file_name = current_web.find('h1', attrs={'itemprop': 'name'}).text.strip()
+    print(file_name)
+
     save_links()
 
 def save_links(): 
-    file = open('links.txt', 'w')
+    file = open('%s.txt' % file_name, 'w')
     for link in downloaded_links:
         file.write(link + '\n')
     file.close()
