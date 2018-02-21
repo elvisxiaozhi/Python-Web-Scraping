@@ -2,8 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import urllib.request
 
-DOWNLOAD_URL = 'http://www.msj1.com/archives/2121.html'
 downloaded_links = []
+
+def input_link():
+    DOWNLOAD_URL = input("Enter the link: ")
+    return DOWNLOAD_URL
 
 def download_page(url):
     return requests.get(url, headers={
@@ -30,6 +33,6 @@ def save_links():
         file.write(link + '\n')
     file.close()
 
-url = DOWNLOAD_URL
+url = input_link()
 web_page = download_page(url)
 url = parse_page(web_page)
