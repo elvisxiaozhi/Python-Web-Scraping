@@ -22,10 +22,14 @@ def parse_page(web_page):
                 downloaded_links.append(link_list['href'])
                 print(link_list['href']) 
 
+    save_links()
+
 def save_links(): 
-    print(downloaded_links)
+    file = open('links.txt', 'w')
+    for link in downloaded_links:
+        file.write(link + '\n')
+    file.close()
 
 url = DOWNLOAD_URL
 web_page = download_page(url)
 url = parse_page(web_page)
-save_links()
